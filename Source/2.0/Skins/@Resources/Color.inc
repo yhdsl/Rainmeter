@@ -1,0 +1,32 @@
+[Variables]
+;the date color
+DateColor=255,255,255,255
+;the time color
+ClockColor=0,0,0,255
+DayColor=255,255,255,255
+;Weather
+ImageColor=255,255,255,255
+WeatherColor=255,255,255,255
+;Drives
+DrivesColor=255,255,255,255
+DrivesImages=255
+DrivesNameColor=0,128,255,255
+;cpu
+CpuColor=255,255,255,255
+CpuImages=255
+CpuNameColor=0,128,255,255
+;gpu
+GpuColor=255,255,255,255
+GpuImages=255
+GpuNameColor=0,128,255,255
+;ram
+RamColor=255,255,255,255
+RamImages=255
+;net
+NetColor=255,255,255,255
+NetImages=255
+NetNameColor=0,128,255,255
+;battery
+BatteryColor=255,255,255,255
+BatteryImages=255
+BatteryNameColor=0,128,255,255
