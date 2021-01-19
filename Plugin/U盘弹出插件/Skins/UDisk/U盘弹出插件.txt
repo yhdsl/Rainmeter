@@ -1,0 +1,89 @@
+
+此皮肤为自制插件 UDisk.dll 的示例皮肤，仅供测试使用，具体应用需自行摸索。
+
+==============================================================
+
+本插件用于显示可移动磁盘以及安全弹出
+
+==============================================================
+
+Measure下选项:
+
+父Measure:
+
+数值返回当前可移动磁盘个数
+字符串值返回所有可移动磁盘盘符
+只在盘符变化时才会遍历所有盘符找出可移动磁盘，资源占用不算最优但也很小。
+
+Drive=			(默认：Removable)
+	All		:返回所有磁盘
+	UDisk		:不检测移动硬盘
+	Removable	:检测移动硬盘，没移动硬盘不建议开启
+
+Mode=			(默认：MultiThread_Silent) 
+	Normal		:弹出设备失败时显示系统提示框，成功时则可能延时一段时间（Win7约15秒内）在任务栏显示气泡
+	Normal_Silent	:无论弹出设备成功与否，系统静默
+	MultiThread	:使用多线程同时弹出U盘，不会造成雨滴卡顿
+	MultiThread_Silent	:同上静默模式
+	UDiskOnly	:只能弹出U盘，相当于在U盘上右击弹出，只用U盘时此选项较好，但不会有系统提示，且只有拔出U盘时本雨滴皮肤才能检出盘符消失
+
+Exclude=			(默认 : )
+	A-Z		:需要在Measure排除的盘符选项，如 Exclude=ABR ，用于排除SD卡盘符，不希望弹出的移动硬盘等
+
+
+子Measure:
+
+DriveMeasure=	:父Measure名称
+
+Drive=		(默认：1)
+	1-26	:代表需要检测的第 N 个磁盘
+
+DriveSpace=	(默认：0)
+	0	:数值返回第N个可移动磁盘是否存在，存在为1，不存在为0
+	1	:剩余容量（字节）
+	2	:已用容量
+	3	:总共容量
+
+DriveLabel=	(默认：0)
+	0	:文本值返回第N个可移动磁盘盘符
+	1	:文本值返回磁盘的卷标
+	2	:返回文本值和卷标，如 C: 我的磁盘
+
+====================================================================
+
+用法:
+
+[MeasureUDisk]
+Measure=Plugin
+Plugin=UDisk
+;Mode=MultiThread
+
+[MeasureUDisk1]
+Measure=Plugin
+Plugin=UDisk
+DriveMeasure=MeasureUDisk
+Drive=1
+
+
+父MeasureBang命令:
+
+Remove_X
+如Remove_E、Remove_F，弹出指定磁盘，后跟大写盘符字母
+
+RemoveDrive
+遍历在Measure字符串中的所有盘符，弹出所有可移动磁盘
+
+RemoveAll
+通常不建议使用，弹出所有USB设备，很可能包括USB鼠标
+
+DisMount_X
+通常不建议使用，用于弹出部分老读卡器的SD卡，此类读卡器用 Remove 后重启前无法识别SD
+
+
+子MeasureBang命令:
+
+Open
+打开当前子Measure所显示的盘符
+
+Remove
+移除当前子Measure所显示的盘符

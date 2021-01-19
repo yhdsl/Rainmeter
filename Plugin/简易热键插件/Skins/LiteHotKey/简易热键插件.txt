@@ -1,0 +1,187 @@
+参照以下插件，推荐使用
+
+时光大神的 GlobalHotKey.dll
+https://bbs.rainmeter.cn/thread-116201-1-2.html
+
+Brian 的 Hotkey Plugin
+http://rainmeter.net/forum/viewtopic.php?f=18&t=18849
+
+实际上上述两个插件写的都比我的好，只不过我作死又写了一个，参照了两位前辈的按键映射。
+原本只想做背光插件的快捷键支持，后来写下来发现功能单一限制多多，还不如再写个插件，于是这个插件就诞生了。
+与上述插件主要是实现方式不同，不注册快捷键而是实时判断，效率不算高，但可以连续触发。
+还有一个优点是假如酷狗注册了Alt+Right作为下一曲的快捷键，可以用此插件继续注册 左边的Alt+Right (填RIGHT LALT)并实现功能
+这时按 右边的Alt+Right 仍是酷狗的下一曲
+Lite仅表示插件源码简单，上述两位大神的很多代码看不懂 =_=||
+
+功能：
+本插件用于设置非独占式 / 独占式全局热键，返回整体快捷键是否有效，如果快捷键设置错误只会在日志里报错
+
+====================================================================
+
+Measure下选项:
+
+HotKey=
+注：	1、每个按键可以有下方按键映射表左侧按键值的任意1到4个，不区分大小写，用空格分隔，实际有很多冲突情况，自行取舍
+	2、第1个按键不能为shift、ctrl、alt修饰键，最好是最后一个按下的按键
+	3、匹配到就判断有效，比如定义了 RIGHT CTRL，按下ctrl+alt+right也会响应，除非在其之前定义了 RIGHT CTRL ALT
+	4、最多定义15组热键，余下的忽略
+
+HotKeyDelay=	(默认：1)
+	0-100	:控制快捷键执行间隔，如果按一次键盘执行两次或更多，则增大此值，只需单次执行的设为100较方便
+
+Command=
+按键按下后执行的动作
+
+Public=		(默认：0)
+	0	:设为独占式快捷键，即扫描到指定快捷键后屏蔽按键组合，使其失去原有的作用
+	1	:设为非独占式快捷键，即扫描到指定快捷键后，按键组合仍有效，比如你想按A发出声响，同时A也能输入，此项填1
+
+====================================================================
+
+用法:
+[MeasureHotKey]
+Measure=Plugin
+Plugin=LiteHotKey
+HotKey=RIGHT LCTRL
+Command=[!Toggle]
+
+Bangs命令:
+
+[!CommandMeasure "MeasureHotKey" "Enable"]
+启用快捷键，同时对所有快捷键生效
+
+[!CommandMeasure "MeasureHotKey" "Disable"]
+禁用快捷键，同时对所有快捷键生效
+
+====================================================================
+
+	按键映射表：
+	
+	当按键首项值为以下三项时返回对应键盘灯状态，HotKeyDelay必须为0，Public必须为1，返回值1亮、0灭
+	注意装了搜狗的话Ctrl等键也可能有解锁大写的功能（大写、英中切换快捷键，具体按键取决于设置）
+	CAPSLOCK	VK_CAPITAL 
+	NUMLOCK	VK_NUMLOCK 
+	SCROLLLOCK	VK_SCROLL 
+
+	按键值		参考虚拟键值
+
+	SHIFT		VK_SHIFT 
+	CTRL		VK_CONTROL 
+	ALT		VK_MENU 
+	LSHIFT		VK_LSHIFT 
+	RSHIFT		VK_RSHIFT 
+	LCTRL		VK_LCONTROL 
+	RCTRL		VK_RCONTROL 
+	LALT		VK_LMENU 
+	RALT		VK_RMENU 
+	LBUTTON		VK_LBUTTON 
+	RBUTTON		VK_RBUTTON 
+	MBUTTON	VK_MBUTTON 
+	XBUTTON1	VK_XBUTTON1 
+	XBUTTON2	VK_XBUTTON2 
+	BACK		VK_BACK 
+	BACKSPACE	VK_BACK 
+	TAB		VK_TAB 
+	TABLE		VK_TAB 
+	ENT		VK_RETURN 
+	ENTER		VK_RETURN 
+	PAUSE		VK_PAUSE 
+	ESC		VK_ESCAPE 
+	ESCAPE		VK_ESCAPE 
+	SPACE		VK_SPACE 
+	PAGEUP		VK_PRIOR 
+	PAGEDOWN	VK_NEXT 
+	END		VK_END 
+	HOME		VK_HOME 
+	LEFT		VK_LEFT 
+	UP		VK_UP 
+	RIGHT		VK_RIGHT 
+	DOWN		VK_DOWN 
+	PRINTSCREEN	VK_SNAPSHOT 
+	INS		VK_INSERT 
+	INSERT		VK_INSERT 
+	DEL		VK_DELETE 
+	DELETE		VK_DELETE 
+	LWIN		VK_LWIN 
+	RWIN		VK_RWIN 
+	MENU		VK_APPS 
+	NUM0		VK_NUMPAD0 
+	NUM1		VK_NUMPAD1 
+	NUM2		VK_NUMPAD2 
+	NUM3		VK_NUMPAD3 
+	NUM4		VK_NUMPAD4 
+	NUM5		VK_NUMPAD5 
+	NUM6		VK_NUMPAD6 
+	NUM7		VK_NUMPAD7 
+	NUM8		VK_NUMPAD8 
+	NUM9		VK_NUMPAD9 
+	MUL		VK_MULTIPLY 
+	MULT		VK_MULTIPLY 
+	MULTIPLY	VK_MULTIPLY 
+	*		VK_MULTIPLY 
+	ADD		VK_ADD 
+	ADDITION	VK_ADD 
+	SUB		VK_SUBTRACT 
+	SUBTRACT	VK_SUBTRACT 
+	DEC		VK_DECIMAL 
+	DECIMAL		VK_DECIMAL 
+	DIV		VK_DIVIDE 
+	DIVIDE		VK_DIVIDE 
+	F1	VK_F1 
+	F2	VK_F2 
+	F3	VK_F3 
+	F4	VK_F4 
+	F5	VK_F5 
+	F6	VK_F6 
+	F7	VK_F7 
+	F8	VK_F8 
+	F9	VK_F9 
+	F10	VK_F10 
+	F11	VK_F11 
+	F12	VK_F12 
+	F13	VK_F13 
+	F14	VK_F14 
+	F15	VK_F15 
+	F16	VK_F16 
+	F17	VK_F17 
+	F18	VK_F18 
+	F19	VK_F19 
+	F20	VK_F20 
+	F21	VK_F21 
+	F22	VK_F22 
+	F23	VK_F23 
+	F24	VK_F24 
+	PLUS	VK_OEM_PLUS 	// +=
+	=	VK_OEM_PLUS 
+	+	VK_OEM_PLUS 
+	COMMA	VK_OEM_COMMA 	// ,<
+	,	VK_OEM_COMMA 
+	<	VK_OEM_COMMA 
+	MINUS	VK_OEM_MINUS 	// -_
+	-	VK_OEM_MINUS 
+	_	VK_OEM_MINUS 
+	PERIOD	VK_OEM_PERIOD 	// .>
+	.	VK_OEM_PERIOD 
+	>	VK_OEM_PERIOD 
+	COLON		VK_OEM_1	// :;
+	:		VK_OEM_1 
+	;		VK_OEM_1 
+	FORWARDSLASH 	VK_OEM_2	// /?
+	/		VK_OEM_2 
+	?		VK_OEM_2 
+	BACKTICK	VK_OEM_3	// `~
+	`		VK_OEM_3 
+	~		VK_OEM_3 
+	LBRACKET	VK_OEM_4	// [{
+	[		VK_OEM_4 
+	{		VK_OEM_4 
+	BACKSLASH	VK_OEM_5	// \|
+	\		VK_OEM_5 
+	|		VK_OEM_5 
+	RBRACKET	VK_OEM_6	// ]}
+	]		VK_OEM_6 
+	}		VK_OEM_6 
+	QUOTE		VK_OEM_7	// '"
+	"		VK_OEM_7 
+	'		VK_OEM_7 
+	CLEAR		VK_CLEAR 

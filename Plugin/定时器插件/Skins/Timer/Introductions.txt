@@ -1,0 +1,50 @@
+
+This Plugin is used to update part of the skin as you wish or to be used as a timer.
+
+For example, it can update part of the measures and meters in the rate of 20 ms when Update=-1 in [Rainmeter] section
+Bangs are useful in this plugin.
+
+Options:
+
+StartOnLoad=	(Default: 0)
+	0	:Don't start the timer on the load of the skin,it can be -N to avoid some bangs on load.
+	1	:Start the timer on the load of the skin
+
+Step=		(Default: 1)
+	>0	:Value to be added when Update time is out, you should use bang to change it after skin is loaded
+
+Update=		(Default: 1000)
+	10~3600000	:in ms
+
+CountAction=	:Bang to execute when Update time is out
+
+FinishAction=	:Bang to execute when Update time is out, CountAction will be execute after that
+
+
+Usage:
+
+[MeasureTimer]
+Measure=Plugin
+Plugin=Timer
+Update=1000
+CountAction=[!UpdateMeasure #CurrentSection#]
+FinishAction=
+
+
+Bangs:
+
+Start
+Start the timer from 0.
+
+Start_(startvalue)_(endvalue)@(step) , startvalue and endvalue can't below 0, step can below 0 and will be saved for next Bang
+e.g. Start_1_255@1		from 1 to 255 by 1, then stop and execute the FinishAction
+e.g. Start_255_0@-1	from 255 to 0 by 1, then stop and execute the FinishAction, equals to Start_255@-1
+e.g. Start_0.1_1.0@0.1
+
+Continue
+If the timer has been started then continue,or the timer will be started from 0.
+The format is the same as "Start".
+The difference is that "Start" will always change the return value but "Continue" not.
+
+Stop
+Stop the timer

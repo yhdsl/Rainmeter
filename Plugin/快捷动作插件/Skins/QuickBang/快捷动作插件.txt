@@ -1,0 +1,151 @@
+
+此皮肤为自制插件 QuickBang.dll 的示例皮肤，仅供测试使用，具体应用需自行摸索。
+
+鼠标离开底部：任务栏自动隐藏并重设工作区
+由于每次ShowTaskbar系统都会重置工作区，所以隐藏任务栏用的是 SetTaskbarAlpha_0 并隐藏开始按钮，开始按钮只有Win7需单独隐藏，XP与Win8都集成在任务栏中。离开右侧的使用 ShowTaskbar 命令，开始按钮长期隐藏还是建议替换为透明。
+
+插件本身不具备延时触发功能，部分动作（如关机）可另行在皮肤中延时触发并加入取消开关，以防止误动作。具体可以参考本皮肤中倒计时，通过激活倒计时皮肤并设置其皮肤变量，以自定义时间和动作。计时准确度和雨滴刷新有关，存在一定误差。
+
+部分动作在某些情况下会产生冲突，如任务栏的一些相关动作同时连续使用
+
+==============================================================
+
+本插件用于执行部分快捷动作
+
+主要是为Win7适配，虽然也对XP做了一定兼容，但不保证效果，因为许多功能XP本身不支持，由此若造成崩溃希望反馈，将会进行屏蔽。
+
+如只需要本皮肤的 Bang 命令，可以在Measure下设置 Disabled=1，Paused=1 或 UpdateDivider=-1，非必要，但也不影响 Bang 命令的执行。
+
+==============================================================
+
+Measure下选项:
+
+InfoType=	(默认：None)
+	None	:返回数值0
+	ActiveProcess
+	IsFullScreen
+
+ActiveProcess:
+插件字符串值返回当前活动窗口对应的程序名，程序名全部小写，通过 IfMatch （3.1.0及以上）可以判断是否激活了指定程序，并执行需要的动作。唯一例外是鼠标点击桌面会返回 Desktop 。
+插件数值返回当前应用（如网页视频、游戏）是否铺满全屏，是则返回1，否则返回0 ，不是完全准确，最好配合字符串值使用。
+
+
+Showlog=	(默认：0)
+	1	:初始化时在日志显示屏幕大小信息和工作区信息
+
+
+小白请无视的选项:
+HandleUpdate=	(默认：1)
+	0	:仅在插件载入时获取桌面句柄
+	1	:默认值，在每次执行相关Bang时重新获取句柄
+	2	:当数值返回当前应用是否铺满全屏时，每次Update都重新获取句柄，以校验窗口是否为桌面，基本没必要
+桌面句柄仅在每次Explorer.exe崩溃/结束并重启后才会改变，根据个人电脑情况选择
+
+====================================================================
+
+用法:
+
+[MeasureQuickBang]
+Measure=Plugin
+Plugin=QuickBang
+;InfoType=ActiveProcess
+;HandleUpdate=1
+;ShowMessage=1
+;UpdateDivider=-1
+;Paused=1
+;Disabled=1
+
+Meter下：
+LeftMouseUpAction=[!CommandMeasure MeasureQuickBang ToggleDesktop]
+
+Bangs命令:
+
+Monitoroff
+NextTrack
+PrevTrack
+Stop
+PlayPause
+VolumeMute
+VolumeDown
+VolumeUp
+HideDesktopIcon
+HideDesktopIcon+
+ShowDesktopIcon
+ShowDesktopIcon+
+ToggleDesktopIcon
+ToggleDesktopIcon+
+HideTaskbar
+HideTaskbar+
+ShowTaskbar
+ShowTaskbar+
+ToggleTaskbar
+ToggleTaskbar+
+HideStartButton
+ShowStartButton
+ToggleStartButton
+StartMenu
+ShowFile
+ShowFile_Refresh
+NextWallpaper
+ToggleDesktop
+MinimizeAll
+RestoreAll
+SwitchWindow
+LockKeyboard
+UnLockKeyboard
+Logoff
+Lock
+Sleep
+Hibernate
+Restart
+Restart_Quick
+Restart_Normal
+Poweroff
+PoweroffQuick
+PoweroffNormal
+Shutdown
+Shutdown_Normal
+Shutdown_Quick
+Shutdown_Hibernate
+SetTaskbarAlpha_	(0-255)
+SetWorkArea_Full
+SetWorkArea_Default
+SetWorkArea_	(left, top, right, bottom)
+
+补充说明:
+
+HideDesktopIcon+
+类似于桌面右键 - 查看 - 显示桌面图标，隐藏窗口后再改注册表，日常建议用 HideDesktopIcon 就够，重启后状态不保留
+
+StartMenu
+弹出开始菜单
+
+ShowFile
+类似于文件夹选项的"隐藏受保护的操作系统文件"和"隐藏文件和文件夹"，文件隐藏则显示，显示则隐藏，默认不刷新资源管理器，需手动按F5，ShowFile_Refresh 则再更改后直接刷新资源管理器
+
+NextWallpaper 
+没找到 Win7 下的程序接口，使用发送快捷键的方式执行，依系统响应速度有比较大的失败可能，为本插件最不可靠的动作
+Win8 虽然有接口但经验能力所限，未加入
+
+Hibernate
+休眠被禁用时此指令与睡眠  Sleep 相同，当年找休眠没被禁用时的睡眠方法费了老大功夫，网上各种烟幕弹，最后放弃，现在在插件里就一句代码
+
+Shutdown
+默认无参数代表关机，通知强行结束进程，结束不了让用户选择是否立即结束，
+_Quick代表强行立即结束所有进程，未保存的数据可能丢失
+关机速度应该是 Shutdown_Quick > Shutdown > Shutdown_Normal 最慢
+Restart类似
+
+Poweroff
+关机命令，皮肤未列出，与 Shutdown 的区别据说是断电的区别，望大神指正
+
+Shutdown_Hibernate
+Win8 混合关机命令  （未验证）
+
+SetWorkArea_Default
+恢复工作区到皮肤加载时的状态
+
+HideDrive_D
+ShowDrive_D
+在资源管理器里隐藏 / 显示指定盘符(A-Z)，示例为D盘，Win7及之后系统只有以管理员权限启动雨滴才可能成功，且成功后要关闭所有资源管理器窗口再打开才生效，XP系统里倒是可能直接成功但没测试过，属于"既然写了那就留着吧"的鸡肋类型
+

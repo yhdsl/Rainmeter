@@ -1,0 +1,29 @@
+====================
+
+2014.08.15
+0.9.1
+
+#添加Bang:
+NextTrack
+PrevTrack
+Stop
+PlayPause
+VolumeMute
+VolumeDown
+VolumeUp
+其为官方插件MediaKey中实现的功能，但发现其多媒体功能键控制不了酷狗音乐、百度音乐等，在本插件中加入支持
+
+#修改算法加强 SetTaskbarAlpha_ 的稳定性
+
+#修正编译选项以大幅缩减插件大小，以及内部代码优化
+
+====================
+
+2014.08.20
+0.9.2
+
+#完善媒体键扫描码
+
+#SetTaskbarAlpha_ 增加 SetTaskbarAlpha_256，为取消透明效果，实际结果与 SetTaskbarAlpha_255 相同
+
+

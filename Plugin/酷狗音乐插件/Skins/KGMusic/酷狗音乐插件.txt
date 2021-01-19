@@ -1,0 +1,143 @@
+
+此皮肤为自制插件 KGMusic.dll 的示例皮肤，仅供测试使用，具体应用需自行摸索。
+
+==============================================================
+
+本插件根据酷狗音乐2014 - 7611版编写，理论上2014版都可用，但不保证对其他版本的兼容性
+首次使用务必先打开酷狗播放器，再刷新皮肤。
+
+==============================================================
+
+Measure下选项:
+
+通用选项:
+PlayerType=	(默认：None)
+	Title	:返回全部歌曲文件名
+	Artist	:返回歌手，以" - "字符划分，不符合的歌曲将返回空值
+	Track	:返回歌曲名
+	Cover	:返回专辑封面图片路径，只在CoverSize设置后有效
+
+
+父Measure:
+
+数值返回当前播放器是否在运行中，是为1，否为0
+字符串值返回当前歌名
+
+PlayerPath=
+播放器路径，第一次使用最好留空，然后先打开酷狗播放器，再打开皮肤或刷新皮肤，插件会自动识别并填写此项，随后所有功能即可正常使用。
+发布带有此插件的皮肤作者就得在发布前将此项清空，注意此项不同于雨滴路径，两侧不需要双引号 " " 。
+
+CoverSize=	(默认：0)
+	0	:不获取封面，皮肤载入后更改无效，下同
+	1	:获取52*52封面
+	2	:获取80*80封面，失败则用52*52封面代替
+	3	:优先获取120*120的大封面(比较少)，失败则用小封面代替
+	4	:同选项3，但在CoverCache设置时优先读取CoverCache内容
+注：搜索失败返回"播放器未运行"（播放器关闭）或"无专辑封面"（播放器打开），注意用Substitute替换为现有图片路径。
+
+CoverCache=	(默认为空)
+	如#@#	#@#Cover\	等，注意设置正确的存在的路径，插件不会自动创建目录。
+专辑封面的缓存路径，若填写此项则会将小封面保存在此路径，并且优先在此路径搜索封面，可自行放入封面图片并命名为歌手名字。
+设置此项有助于减少寻找并获取封面的时间，120*120的大封面本身即为图片所以不用缓存。
+
+AutoOpen=	(默认：0)
+	1	:执行PlayPause时若检测不到播放器，自动打开播放器，若要打开直接播放的自行在酷狗里设置
+
+子Measure:
+
+PlayerMeasure=	:父Measure名称
+
+
+====================================================================
+
+用法示例:
+
+[MeasureKGMusic]
+Measure=Plugin
+Plugin=KGMusic
+PlayerPath=C:\Program Files (x86)\KGMusic\KuGou.exe
+CoverSize=3
+;CoverCache=#@#
+AutoOpen=1
+PlayerType=Title
+
+[MeasureKGMusic1]
+Measure=Plugin
+Plugin=KGMusic
+PlayerMeasure=MeasureKGMusic
+PlayerType=Track
+
+[MeasureKGMusic2]
+Measure=Plugin
+Plugin=KGMusic
+PlayerMeasure=MeasureKGMusic
+PlayerType=Cover
+Substitute="无专辑封面":"#@#Default.png","播放器未运行":"#@#Standby.png"
+
+
+Bang命令:
+
+PrevTrack
+NextTrack
+PlayPause
+Stop
+同MediaKey的多媒体快捷键，能控制大部分国产播放器
+
+Play
+播放 / 暂停
+快捷键：Alt + F5
+
+Next
+下一曲
+快捷键：Alt + Left
+
+Prev 或 Previous
+上一曲
+快捷键：Alt + Right
+
+VolumeUp
+播放器增大音量
+快捷键：Alt + Up
+
+VolumeDown
+播放器减小音量
+快捷键：Alt + Down
+
+VolumeMute
+播放器静音
+快捷键：Ctrl + Alt + S
+
+ShowLyric
+显示桌面歌词
+快捷键：Ctrl + Alt + D
+
+LockLyric
+锁定桌面歌词
+快捷键：Ctrl + Alt + E
+
+Open
+打开播放器（非酷狗音乐手动填写PlayerPath有效）
+
+以下为非通用命令，仅酷狗音乐支持:
+
+Close
+关闭播放器
+
+Minimize
+最小化播放器
+
+Restore
+还原播放器
+
+Hide
+隐藏播放器，用于停靠侧边时隐藏蓝边等，用法参考QuickBang的任务栏隐藏皮肤
+
+Show
+显示播放器，与Hide对应
+
+Toggle
+显示/隐藏播放器
+
+注：带有“快捷键”描述的Bang通过执行按键模拟进行操作，其他播放器设置相同的全局快捷键可用
+
+

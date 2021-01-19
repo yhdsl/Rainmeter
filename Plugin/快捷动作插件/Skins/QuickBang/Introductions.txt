@@ -1,0 +1,74 @@
+Measure Options:
+
+InfoType=	(Default£ºNone)
+	None	:Return 0	
+	IsFullScreen:The number value returns whether the current actived program fills the full screen (main monitor only).
+	ActiveProcess:The string value return the name of the current actived program,and the number value is IsFullScreen.
+
+Showlog=	(Default£º0)
+	1	:Show zhe workarea and screenarea infomation in the log on refresh.
+
+Bangs:
+
+Monitoroff
+NextTrack
+PrevTrack
+Stop
+PlayPause
+VolumeMute
+VolumeDown
+VolumeUp
+HideDesktopIcon
+HideDesktopIcon+
+	+to write the registry key
+ShowDesktopIcon
+ShowDesktopIcon+
+ToggleDesktopIcon
+ToggleDesktopIcon+
+HideTaskbar
+HideTaskbar+
+	+to hide the start botton
+ShowTaskbar
+ShowTaskbar+
+ToggleTaskbar
+ToggleTaskbar+
+HideStartButton
+ShowStartButton
+ToggleStartButton
+StartMenu
+ShowFile
+	show/hide files and system files in the explorer
+	you have to press the F5 key to refresh, ShowFile_Refresh may be better
+ShowFile_Refresh
+NextWallpaper
+	for win7 and later,it's the desktop slideshow
+ToggleDesktop
+MinimizeAll
+RestoreAll
+SwitchWindow
+	for win7 and later, 3D window
+LockKeyboard
+	useless for ctrl+alt+del
+UnLockKeyboard
+Logoff
+Lock
+Sleep
+Hibernate
+Restart
+Restart_Quick
+	may cause unsaved files lost
+Restart_Normal
+	the slowest way
+Poweroff
+PoweroffQuick
+PoweroffNormal
+Shutdown
+Shutdown_Normal
+Shutdown_Quick
+Shutdown_Hibernate
+	for win8 and later,not tested
+SetTaskbarAlpha_	(0-255)
+SetWorkArea_Full
+	set the workarea of the main monitor
+SetWorkArea_Default
+SetWorkArea_	(left, top, right, bottom)

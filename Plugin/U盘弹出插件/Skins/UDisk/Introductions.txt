@@ -1,0 +1,83 @@
+
+Plugin for showing the removable drives and eject them safely.
+CD-ROM is not supported.
+Problem: About 10 bytes (maybe) of RAM will be wasted in MultiThread mode in every eject.I've no idea how to do the clean up...
+
+Measure Options:
+
+Parent Measure:
+
+The number value returns the number of the drives in the list.
+The string value returns the drive letters,like "EFG".
+
+Drive=			(Default: Removable)
+	All		:Return all the drives.
+	UDisk		:Return USB-disks,mobile harddisk is not included.
+	Removable	:Return USB-disks,mobile harddisk is included.
+
+Mode=			(Default: MultiThread_Silent) 
+	Normal		:Remove device and show the balloon in about 15s for Win7.
+	Normal_Silent	:Remove device in silence.
+	MultiThread	:Remove device with single thread,which won't stop the rainmeter when ejecting.
+	MultiThread_Silent	:Remove device in silence with single thread.
+
+Exclude=			(Optional)
+	A-Z		:Drives to exclude from the list,e.g. Exclude=ABR .
+
+
+Child Measure:
+
+DriveMeasure=	:The name of the Parent Measure
+
+Drive=		(Default: 1)
+	1-26	:Pick the drive letter from the parent measure
+
+DriveSpace=	(Default: 0)
+	0	:Whether the drive exists, 1 for true, 0 for false
+	1	:Free space, in Bytes, !SetOption or DynamicVariables=1 is need to get the maxvalue for bar, you can take the UDisk_Simple skin for example.
+	2	:Used
+	3	:Total
+
+DriveLabel=	(Default: 0)
+	0	:The string value returns the drive letter.
+	1	:Return the name of the drive.
+	2	:Return both, e.g. C: MyDrive
+
+====================================================================
+
+Use:
+
+[MeasureUDisk]
+Measure=Plugin
+Plugin=UDisk
+;Mode=MultiThread
+
+[MeasureUDisk1]
+Measure=Plugin
+Plugin=UDisk
+DriveMeasure=MeasureUDisk
+Drive=1
+
+
+Bang for Parent Measure:
+
+Remove_X
+e.g. Remove_E¡¢Remove_F
+
+RemoveDrive
+Eject all the removable device in the list of parent measure.
+
+RemoveAll
+Not suggested, eject all the usb device, USB mouse may be included.
+
+DisMount_X
+Not suggested, for dismount SD cards for some old SD card-reader in laptop, not tested.
+
+
+Bang for Child Measure:
+
+Open
+Open the drive in explorer.
+
+Remove
+Eject the drive.

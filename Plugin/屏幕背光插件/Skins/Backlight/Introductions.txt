@@ -1,0 +1,58 @@
+
+This Plugin is used to control the backlight of laptop LCD or desktop monitor.(Support Vista and later)
+It controls the laptop LCD backlight by setting AC/DC brightness in Power Management (IOCTL).
+To control a desktop monitor (external monitor) ,the monitor must support DDC/CI. It seems most of the monitors since 2006 support it,but you may need to enable it in monitor OSD.
+Both HDMI and VGA cable are supported.
+
+It's designed to control 3 monitors at most at the same time, but I've no hardware to test it and it may not work in some situation.
+In my test, laptop can only control the external monitor when mode is "copy",and it doesn't works well in some laptop(notebook) computer.
+I don't know how to solve these problems, hoping some can help improve it.
+
+It returns the percentage (0-100) of current brightness.
+
+Options:
+
+Monitor=		(Default: -1)
+	-1	:Default.This Plugin will try to control laptop LCD first in Initialize function, if failed, then the desktop one.
+	0	:Try to control all of the desktop monitors(3 at most).It can also be used for laptop to control external monitor.
+	1	:Control the first desktop monitor.(The number is according to the log when Showlog=1)
+	2	:Control the second desktop monitor.For a laptop,the first external monitor should be 2.
+	3	:Control the third desktop monitor.
+
+Policy=		(Optional)
+	Forcelevel,	:£¨for laptop£©return the nearest brightness according to Divide=
+	Removable,	:£¨for laptop to control monitor£©When external monitor is hot pluged, with this option, monitors will be able to reinitialized after 3s to avoid the crash of the rainmeter, the time to reinitialize is according to Update in skin or Bang.Not suggested when you don't hot plug the monitor.
+
+For example:For laptop,SetBacklight 50 may return real brightness 52, but when Policy=Forcelevel, the brightness will be set to 52,and return 50.
+
+
+Divide=		(Default: 10)
+	Number from 1 to 100
+Decide the number of level when using "Backlight+" or "Backlight-".If it's set 20, then change the brightness by 5%.
+For laptop LCD it's decide by the OEM in drivers, or you can use Policy=Forcelevel to make the number seems better, but the real level won't change.
+
+Showlog=	(Default: 0)
+	1	:Show screen information in the log,the real brightness level for laptop LCD, or the list of the monitors in control.It's no need to be set in daily use.
+
+Usage:
+
+[MeasureBacklight]
+Measure=Plugin
+Plugin=Backlight
+;Monitor=-1
+;Divide=10
+;Showlog=1
+
+Bangs:
+
+!CommandMeasure "MeasureBacklight" "SetBacklight x"
+Set backlight to x percent(between 0 and 100).
+It will be set to the nearest level in laptop LCD.
+
+!CommandMeasure "MeasureBacklight" "ChangeBacklight x"
+Change the backlight by x percent.
+
+!CommandMeasure "MeasureBacklight" "Backlight+"
+!CommandMeasure "MeasureBacklight" "Backlight-"
+Change the backlight by level.
+It's for laptop LCD to change the real brightness level when Forcelevel is not set.
