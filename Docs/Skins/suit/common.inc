@@ -1,0 +1,2 @@
+[Variables]
+ShowDock=1
