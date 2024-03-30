@@ -21,7 +21,7 @@ Friday=星期五
 Saturday=星期六
 Sunday=星期天
 ;time
-Your User Name=Link Steve
+Your User Name=
 ;weather
 Today's=Today's
 Feels like=Feels like

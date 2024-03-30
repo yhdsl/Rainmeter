@@ -28,7 +28,7 @@ Conditions="Thunderstorms":"Thunderstorms","Windy Rain":"Windy Rain","T-Storms":
 
 TimeOfDay="00":"Good night","01":"Good night","02":"Good night","03":"Good night","04":"Good night","05":"Good night","06":"Good night","07":"Good morning","08":"Good morning","09":"Good morning","10":"Good morning","11":"Good morning","12":"Good afternoon","13":"Good afternoon","14":"Good afternoon","15":"Good afternoon","16":"Good afternoon","17":"Good afternoon","18":"Good evening","19":"Good evening","20":"Good evening","21":"Good night","22":"Good night","23":"Good night"
 
-Your User Name=Link Steve
+Your User Name=
 
 It's a weekend. Time for a party=It's a weekend. Time for a party
 
@@ -61,4 +61,3 @@ Thursday=星期四
 Friday=星期五
 Saturday=星期六
 Sunday=星期天
-
